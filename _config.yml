@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: ''
-subtitle: ''
-description: ''
+title: '悠哥安眠处'
+subtitle: 'The Real Annapausis'
+description: '这里是花皓暮羽的Blog，欢迎浏览。'
 keywords:
-author: John Doe
-language: en
+author: 9826HZg
+language: zh-CN
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://haruka.bingtangxh.moe
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
