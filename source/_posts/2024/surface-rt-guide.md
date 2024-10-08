@@ -90,7 +90,7 @@ updated: 2024-05-30 14:08:44
     }
     ```
     {% endfolding %}
-11.	下载 Li_zip [为 RT 打包整理的 appx](https://www.123pan.com/s/Nu9rVv-XTrch.html) （可选的，如果不打算玩 RT 的应用就不要。通常要用这些软件，就要禁用 sppsvc，因为 sppsvc 会阻止运行侧载软件启动。而禁用 sppsvc 会导致 Windows 在此期间未激活，Office 也认为未激活。）
+11.	下载 Li_zip [为 RT 打包整理的 appx](https://www.123pan.com/s/Nu9rVv-XTrch.html) （可选的，如果不打算玩 RT 的应用就不要。通常要用这些软件，就要禁用 sppsvc，因为 sppsvc 会阻止运行侧载软件启动。而禁用 sppsvc 会导致 Windows 在此期间未激活，Office 也认为未激活。）具体方法可以看[在2024年为Windows8.x系列成功侧载第三方metro应用 复活你的Surface RT!](https://www.bilibili.com/video/BV1XS421w7uX/)，注意视频中提到的`Product Policy Editor`一般需要先用上面的`Jail Break`启用测试模式（Test Mode），然后再用下面说的`SignTool`将`Product Policy Editor`签名后才能运行，也可以用`Jail Break`将测试模式（Test Mode）和UMCI Audit Mode这两个都启用，再运行`Product Policy Editor`。
 同时也要下载 [Li_zip 提供的 Product Policy Editor 和 Windows App Boss](https://www.123pan.com/s/Nu9rVv-tTrch.html)
 12.	下载 [Signtool 和 RT Jail Break](https://www.bilibili.com/read/cv17483017)（可选的，与 Jail Break 不同，这个是一些桌面应用程序）
 13.	一个能访问 archive.org 的环境或代理（可选，如果不需要额外下载 Windows 的开始屏幕等类似补丁，或者你的 Windows 系统当年已经安装这些更新，就不需要）
