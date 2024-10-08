@@ -6,14 +6,18 @@ date: 2024-05-28 17:52:26
 updated: 2024-05-30 14:08:44
 ---
 
-## 一、准备工作和下载，下述一个都不能少
+## 此教程目前仍不完善
+请根据您的折腾路线（安装侧载应用、刷Windows 10 Build 15035还是运行Linux系统）查找对应的教程。
+目前本文章仅能介绍如何让你的Surface RT能在开机时出现一个菜单，让你选择启动内置存储（eMMC）的Windows RT 8.1还是MicroSD里的树莓派Linux系统。
+
+## 一、准备工作和下载，下述没特殊标明的就是一个都不能少
 
 1.	另一台能够使用 Windows 和 Linux 的普通电脑
-2.	一个集线器
+2.	一个读卡器
 3.	一个至少 16GB 的 microSD 卡，建议 64GB 为宜
-4.	一个读卡器
-5.	一个至少 16GB 的 U 盘（机械移动硬盘供电不够，不能用）
-6.	一个 USB 键盘，哪怕是三键的键盘都行
+4.	一个至少 16GB 的 U 盘（机械移动硬盘供电不够，不能用）
+5.	一个集线器
+6.	一个 USB 键盘，哪怕是只有三个键的键盘都行（集线器和键盘没有也不是不行，但是如果有就轻松很多）
 7.	下载 [Jail Break](https://jwa4.gitbook.io/windows/tools/surface-rt-and-surface-2-jailbreak-usb)
 8.	下载 [特制的树莓派系统镜像](https://files.open-rt.party/Linux/Distro/2023-10-10-raspios-bookworm-surface-rt-armhf-full.img.xz)，约 2.8GB
 9.	下载安装树莓派系统烧录器
@@ -98,15 +102,16 @@ updated: 2024-05-30 14:08:44
 
 ## 二、开始突破
 
-1.	在正常电脑上操作：将 Jail Break 文件夹的所有文件都放到U盘里，让 `menu` 这个文件在 U 盘的根目录。
+1.	在正常电脑上操作：将 Jail Break 文件夹的所有文件都放到U盘里，让 `Jailbreak_USB_Menu.cmd` 这个文件在 U 盘的根目录。
 2.	你可以这个时候把下载好的树莓派镜像写入到 microSD 卡里，在此期间继续以下步骤，统筹安排节省时间。
 先将下载的 xz 文件解压，得到 img 文件。然后打开安装好的树莓派镜像烧录器 Raspberry Pi Imager，左边 Device 选 NO FILTERING，中间“系统”选择菜单最下面的 Use Custom，然后选择 img 镜像文件，右边“储存卡”选择你要存放树莓派系统的 microSD 卡。开始写入。
 写入完毕后还会自动进行校验。当整篇文章完成后，你可以删除 bootfs 分区，用其他分区软件（例如 DiskGenius 或 KDE 分区管理器）在未划给 rootfs 分区（ext4 文件系统）的空间上新建一个 FAT32 分区，用来存放你个人的媒体和文档。
 3.	现在把集线器插到 RT 上，把实体键盘和U盘插到 RT 上。你的键盘必须有回车键。（RT 的自带键盘或者任何蓝牙键盘到时候都不能用）
-4.	在 RT 上，打开 U 盘，以管理员身份运行 Jail Break 的主菜单，等待出现界面后，输入`1`（Install Yahallo），按 Enter。
+4.	在 RT 上，打开 U 盘，以管理员身份运行 Jail Break 的主菜单，等待出现界面后，输入`1`（Install Golden Keys），按 Enter。
 5.	等待返回主界面，再按下`5`（set boot menu timeout），然后输入一个靠谱的数值，比如`10`，再按Enter。
 6.	现在USB口只留下U盘和键盘，别的都拔掉，重启 RT。在黑屏后立即按住音量减键。Surface 会从 U 盘启动。
-7.	看到出现 Windows Boot Manager 的黑白英文界面后，用键盘选择 install Golden Keys 。要求你同意协议，选 accept。你要是不同意的话你的目的达不成啊。（Golden Keys 的安装界面特殊适配，可以识别开始按钮，而启动菜单不行）注意，一旦正常进入 Windows 系统，那么 Golden Keys 很可能就会失效。对于此种情况（我就是），必须趁 Windows 没插手，立即再次长按音量减键，从 U 盘启动，然后用键盘选择 Install Yahallo，选了这个后 Surface 会不出现任何交互界面直接重启。这次会我用的 RT 还有一个逆天问题，长按音量减键进入 U 盘的界面时，它会检测到我按的音量减，于是焦点往下移动一格，然后默认倒计时停止。而这个界面你只有按音量键可以代替上和下方向键，开始按钮和电源按钮都起不到回车进入的作用，逆天吧！必须借助外接键盘，就为了按那么一个回车。而RT又只有一个 USB 口，所以得有集线器。
+7.	看到出现 Windows Boot Manager 的黑白英文界面后，用键盘选择 install Golden Keys 。要求你同意协议，选 accept。（Golden Keys 的安装界面特殊适配，可以识别开始按钮，而启动菜单不行）注意，一旦正常进入 Windows 系统，那么 Golden Keys 很可能就会失效。对于此种情况（我就是），必须趁 Windows 没插手，立即再次长按音量减键，从 U 盘启动，然后用键盘选择 Install Yahallo，选了这个后 Surface 会出现一个满屏黑底白字的“难绷”界面，待看到`PLEASE RESET YOURDEVICE MANUALLY USING THE POWER BUTTON`时，便可长按电源键关机，然后再开机。如果不提示任何内容直接重启了，那么有可能是Golden Keys没有安装成功。这次我用的 RT 还有一个逆天问题，长按音量减键进入 U 盘的界面时，它会检测到我按的音量减，于是焦点往下移动一格，然后默认倒计时停止。而这个界面你只有按音量键可以代替上和下方向键，开始按钮和电源按钮都起不到回车进入的作用，逆天吧！必须借助外接键盘，就为了按那么一个回车。而RT又只有一个 USB 口，所以得有集线器。然后再次在按住音量减键且插着U盘的时候开机，看到 Windows Boot Manager 之后，用键盘选择 Uninstall Golden Keys，然后再长按电源键关机。
+【如果没有键盘和集线器，那么你需要使用RT上的 `Jailbreak_USB_Menu`、命令提示符中的`bcdedit`、另一台电脑上的 bootice 或 EasyBCD 任一工具，在安装完 Golden Keys 之后，让RT进入Windows系统，运行  Jailbreak_USB_Menu 或者找一个别的电脑运行 bootice、EasyBCD 等工具并打开U盘的`\EFI\Microsoft\Boot\BCD`（不区分大小写），将 Install Yahallo 设为默认启动项，再在RT上安装 Yahallo ，完了再按照同样的方法将 Uninstall Golden Keys 设为默认，再在RT上卸载 Golden Keys。如果你和我一样遇到了长按音量减键却导致默认的选项焦点消失，必须借助键盘按回车键的情况，你却又没有键盘，那么可以在管理员权限的命令提示符中输入`bcdedit /store D:\EFI\Microsoft\Boot\BCD /set {bootmgr} displaybootmenu no`然后按回车（假设U盘是D:，请自行替换为你的U盘实际的盘符）或者用bootice等工具将此数值设为No，这样应该就会不显示菜单，直接进入默认的启动项目，也就不用担心在不该按下音量减键的时候没有及时松开了。当然你也可以试着卡点松开音量减键：在你按住了音量减键并开机，RT已经开始从U盘启动，而菜单还未显示的时候，立即松开音量减键，这样不用刚才说的指令，虽然还会显示菜单，但是你在重要的时机松开了音量减键，就不会失去焦点，还是能成功完成安装Golden Keys等操作。】
 8.	现在可以进入 Windows 系统了，运行 `msinfo32`，看看“安全启动状态”是不是关闭了。
 9.	如果已经关闭了安全启动，那就进行正式开始的步骤！
 如果还是开着的，那只能清空内置硬盘重装系统了。先格式化 U 盘（U 盘必须格成 FAT32 文件系统），然后将之前下载的原厂镜像文件全部复制到 U 盘。将 Surface 从 U 盘启动，进入“疑难解答→高级选项→命令提示符”，依次输入：（`rem` 开头的是注释，无需输入）
@@ -177,3 +182,5 @@ updated: 2024-05-30 14:08:44
 {% copy xcopy E:\* /E /-Y F:\ prefix:命令示例 %}
 （例如你的 bootfs 分区是 E 盘，EFI 分区是 F 盘）
 18.	大功告成！现在你的 RT 应该可以启动 GRUB，并且开机时出现启动菜单了！
+
+## 未完待续……
