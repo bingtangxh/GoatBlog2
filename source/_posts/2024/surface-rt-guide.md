@@ -90,8 +90,8 @@ updated: 2024-05-30 14:08:44
     }
     ```
     {% endfolding %}
-11.	下载 Li_zip [为 RT 打包整理的 appx](https://www.bilibili.com/video/bv1xs421w7ux) （可选的，如果不打算玩 RT 的应用就不要。通常要用这些软件，就要禁用 sppsvc，因为 sppsvc 会阻止运行侧载软件启动。而禁用 sppsvc 会导致 Windows 在此期间未激活，Office 也认为未激活。）
-同时也要下载 [Li_zip 提供的 Product Policy Editor 和 Windows App Boss](https://www.123pan.com/s/nu9rvv-ttrch.html)
+11.	下载 Li_zip [为 RT 打包整理的 appx](https://www.123pan.com/s/Nu9rVv-XTrch.html) （可选的，如果不打算玩 RT 的应用就不要。通常要用这些软件，就要禁用 sppsvc，因为 sppsvc 会阻止运行侧载软件启动。而禁用 sppsvc 会导致 Windows 在此期间未激活，Office 也认为未激活。）
+同时也要下载 [Li_zip 提供的 Product Policy Editor 和 Windows App Boss](https://www.123pan.com/s/Nu9rVv-tTrch.html)
 12.	下载 [Signtool 和 RT Jail Break](https://www.bilibili.com/read/cv17483017)（可选的，与 Jail Break 不同，这个是一些桌面应用程序）
 13.	一个能访问 archive.org 的环境或代理（可选，如果不需要额外下载 Windows 的开始屏幕等类似补丁，或者你的 Windows 系统当年已经安装这些更新，就不需要）
 14.	Surface RT 的原厂镜像。访问 [Surface 恢复映像下载](https://support.microsoft.com/zh-cn/surface-recovery-image)然后按照提示选择型号，输入序列号，下载原厂镜像。
