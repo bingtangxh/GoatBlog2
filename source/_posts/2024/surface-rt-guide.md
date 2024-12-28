@@ -93,7 +93,7 @@ updated: 2024-05-30 14:08:44
 11.	下载 Li_zip [为 RT 打包整理的 appx](https://www.123pan.com/s/Nu9rVv-XTrch.html) （可选的，如果不打算玩 RT 的应用就不要。通常要用这些软件，就要禁用 sppsvc，因为 sppsvc 会阻止运行侧载软件启动。而禁用 sppsvc 会导致 Windows 在此期间未激活，Office 也认为未激活。）具体方法可以看[在2024年为Windows8.x系列成功侧载第三方metro应用 复活你的Surface RT!](https://www.bilibili.com/video/BV1XS421w7uX/)，注意视频中提到的`Product Policy Editor`一般需要先用上面的`Jail Break`启用测试模式（Test Mode），然后再用下面说的`SignTool`将`Product Policy Editor`签名后才能运行，也可以用`Jail Break`将测试模式（Test Mode）和UMCI Audit Mode这两个都启用，再运行`Product Policy Editor`。
 同时也要下载 [Li_zip 提供的 Product Policy Editor 和 Windows App Boss](https://www.123pan.com/s/Nu9rVv-tTrch.html)
 12.	下载 [Signtool 和 RT Jail Break](https://www.bilibili.com/read/cv17483017)（可选的，与 Jail Break 不同，这个是一些桌面应用程序）
-13.	一个能访问 archive.org 的环境或代理（可选，如果不需要额外下载 Windows 的开始屏幕等类似补丁，或者你的 Windows 系统当年已经安装这些更新，就不需要）
+13.	一个能访问 archive.org 的环境或代理（可选，如果不需要用[Windows Media Builder](https://windows-rt-devices.gitbook.io/windows/tools/windows-media-builder)额外下载 Windows 的开始屏幕等类似补丁，或者你的 Windows 系统当年已经安装这些更新，就不需要）
 14.	Surface RT 的原厂镜像。访问 [Surface 恢复映像下载](https://support.microsoft.com/zh-cn/surface-recovery-image)然后按照提示选择型号，输入序列号，下载原厂镜像。
 15.	如果你发现你的 C 盘是带锁的，即启用了设备加密，那么请以管理员身份打开命令提示符，输入 `manage-bde -off C:`
 此期间不会有进度条，如果想查看进度，可以输入` manage-bde -status C:`
@@ -111,7 +111,7 @@ updated: 2024-05-30 14:08:44
 5.	等待返回主界面，再按下`5`（set boot menu timeout），然后输入一个靠谱的数值，比如`10`，再按Enter。
 6.	现在USB口只留下U盘和键盘，别的都拔掉，重启 RT。在黑屏后立即按住音量减键。Surface 会从 U 盘启动。
 7.	看到出现 Windows Boot Manager 的黑白英文界面后，用键盘选择 install Golden Keys 。要求你同意协议，选 accept。（Golden Keys 的安装界面特殊适配，可以识别开始按钮，而启动菜单不行）注意，一旦正常进入 Windows 系统，那么 Golden Keys 很可能就会失效。对于此种情况（我就是），必须趁 Windows 没插手，立即再次长按音量减键，从 U 盘启动，然后用键盘选择 Install Yahallo，选了这个后 Surface 会出现一个满屏黑底白字的“难绷”界面，待看到`PLEASE RESET YOURDEVICE MANUALLY USING THE POWER BUTTON`时，便可长按电源键关机，然后再开机。如果不提示任何内容直接重启了，那么有可能是Golden Keys没有安装成功。这次我用的 RT 还有一个逆天问题，长按音量减键进入 U 盘的界面时，它会检测到我按的音量减，于是焦点往下移动一格，然后默认倒计时停止。而这个界面你只有按音量键可以代替上和下方向键，开始按钮和电源按钮都起不到回车进入的作用，逆天吧！必须借助外接键盘，就为了按那么一个回车。而RT又只有一个 USB 口，所以得有集线器。然后再次在按住音量减键且插着U盘的时候开机，看到 Windows Boot Manager 之后，用键盘选择 Uninstall Golden Keys，然后再长按电源键关机。
-【如果没有键盘和集线器，那么你需要使用RT上的 `Jailbreak_USB_Menu`、命令提示符中的`bcdedit`、另一台电脑上的 bootice 或 EasyBCD 任一工具，在安装完 Golden Keys 之后，让RT进入Windows系统，运行  Jailbreak_USB_Menu 或者找一个别的电脑运行 bootice、EasyBCD 等工具并打开U盘的`\EFI\Microsoft\Boot\BCD`（不区分大小写），将 Install Yahallo 设为默认启动项，再在RT上安装 Yahallo ，完了再按照同样的方法将 Uninstall Golden Keys 设为默认，再在RT上卸载 Golden Keys。如果你和我一样遇到了长按音量减键却导致默认的选项焦点消失，必须借助键盘按回车键的情况，你却又没有键盘，那么可以在管理员权限的命令提示符中输入`bcdedit /store D:\EFI\Microsoft\Boot\BCD /set {bootmgr} displaybootmenu no`然后按回车（假设U盘是D:，请自行替换为你的U盘实际的盘符）或者用bootice等工具将此数值设为No，这样应该就会不显示菜单，直接进入默认的启动项目，也就不用担心在不该按下音量减键的时候没有及时松开了。当然你也可以试着卡点松开音量减键：在你按住了音量减键并开机，RT已经开始从U盘启动，而菜单还未显示的时候，立即松开音量减键，这样不用刚才说的指令，虽然还会显示菜单，但是你在重要的时机松开了音量减键，就不会失去焦点，还是能成功完成安装Golden Keys等操作。】
+【如果没有键盘和集线器，那么你需要使用RT上的 `Jailbreak_USB_Menu`、命令提示符中的`bcdedit`、另一台电脑上的 bootice 或 EasyBCD 任一工具，在安装完 Golden Keys 之后，让RT进入Windows系统，运行  Jailbreak_USB_Menu 或者找一个别的电脑运行 bootice、EasyBCD 等工具并打开U盘的`\EFI\Microsoft\Boot\BCD`（不区分大小写），将 Install Yahallo 设为默认启动项，再在RT上安装 Yahallo ，完了再按照同样的方法将 Uninstall Golden Keys 设为默认，再在RT上卸载 Golden Keys。如果你和我一样遇到了长按音量减键却导致默认的选项焦点消失，必须借助键盘按回车键的情况，你却又没有键盘，那么可以在管理员权限的命令提示符中输入`bcdedit /store D:\EFI\Microsoft\Boot\BCD /set {bootmgr} displaybootmenu no`然后按回车（假设U盘是D:，请自行替换为你的U盘实际的盘符）或者用bootice等工具将`displaybootmenu`数值设为No，这样应该就会不显示菜单，直接进入默认的启动项目，也就不用担心在不该按下音量减键的时候没有及时松开了。当然你也可以试着卡点松开音量减键：在你按住了音量减键并开机，RT已经开始从U盘启动，而菜单还未显示的时候，立即松开音量减键，这样不用刚才说的指令，虽然还会显示菜单，但是你在重要的时机松开了音量减键，就不会失去焦点，还是能成功完成安装Golden Keys等操作。】
 8.	现在可以进入 Windows 系统了，运行 `msinfo32`，看看“安全启动状态”是不是关闭了。
 9.	如果已经关闭了安全启动，那就进行正式开始的步骤！
 如果还是开着的，那只能清空内置硬盘重装系统了。先格式化 U 盘（U 盘必须格成 FAT32 文件系统），然后将之前下载的原厂镜像文件全部复制到 U 盘。将 Surface 从 U 盘启动，进入“疑难解答→高级选项→命令提示符”，依次输入：（`rem` 开头的是注释，无需输入）
@@ -137,6 +137,8 @@ updated: 2024-05-30 14:08:44
 ## 三、正式开始
 
 1.	现在回到正常电脑，按照网络上[这篇文章](https://openRT.gitbook.io/open-surfaceRT/surface-RT/linux/kernel/prebuilt-binaries)的方法处理 bootfs 分区中的文件。
+点开之后，直接下载`usb-linux-boot.zip`，然后把解压出来的东西都替换进存放树莓派系统的存储卡/U盘 bootfs 分区里。bootfs分区里也会有一个`usb-linux-boot.zip`，两个应该是完全一样的。
+虽然其他文章会说是通过`startup.nsh`启动，但我们最后要用 GRUB 启动，不需要在乎`startup.nsh`。
 你应该替换了下述文件：
   - `startup.nsh`
   - `zImage`
