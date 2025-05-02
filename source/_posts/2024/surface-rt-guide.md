@@ -3,12 +3,13 @@ title: Surface RT 保姆级新手上路
 categories: [日常]
 author: bingtangxh
 date: 2024-05-28 17:52:26
-updated: 2024-05-30 14:08:44
+updated: 2025-05-02 13:39:00
 ---
 
 ## 此教程目前仍不完善
 请根据您的折腾路线（安装侧载应用、刷Windows 10 Build 15035还是运行Linux系统）查找对应的教程。
 目前本文章仅能介绍如何让你的Surface RT能在开机时出现一个菜单，让你选择启动内置存储（eMMC）的Windows RT 8.1还是MicroSD里的树莓派Linux系统。
+此教程理论上也适用于 Surface 2，不过 grub.cfg 中的 gfxmode 需要是 `1920x1080`，同时开机会卡 7 分钟 21 秒左右。（并没有说错）可以使用 Open RT Discord 提供的其他基于 Windows 启动管理器的程序来解决 7 分钟延迟问题。
 
 ## 一、准备工作和下载，下述没特殊标明的就是一个都不能少
 
