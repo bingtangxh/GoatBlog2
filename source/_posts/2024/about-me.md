@@ -3,7 +3,7 @@ title: 关于我
 categories: [日常]
 author: bingtangxh
 date: 2025-01-13 20:25:00
-updated: 2025-01-13 20:25:00
+updated: 2025-06-27 10:08:00
 ---
 
 ## 关于我这个人
@@ -41,7 +41,7 @@ end of file
 
 其实吧，我认为刻意显现自己喜欢的东西是一种不太好的行为，像是在注定给自己贴上标签。
 
-不过，为了快速找到志同道合的知己，下方还是列出了我自己喜欢的东西。
+不过，为了快速找到志同道合的知己，下方还是列出来了。
 
 - Microsoft 相关
 - 喜羊羊与灰太狼 （并非限定于单个角色）
@@ -51,6 +51,13 @@ end of file
 - 三星手机 Samsung Phones
 - 分立元件和一些常见集成块的电路的设计
 
+{% folding child:codeblock 觉得不够完整是不 %}
+
+其实这里还想说性癖的，但是有人建议“博客是给所有人看的”，所以删了。说个关键词，44℃梅毒。
+
+还喜欢拍地铁和公交车，但是不拍火车，也不喜欢 Miku 和 BA 。
+
+{% endfolding %}
 
 ## 我在用什么
 
@@ -59,12 +66,12 @@ end of file
   - Manjaro
 - 影驰 GTX 1060 5G
 - Surface Pro 3 128GB
-  - Windows Server 2022（是 Windows 10 但并不是官方版本）
   - Windows 8.1
 - Mi Silent Mouse
 - Acer OKR213
 - Samsung Galaxy A54 5G
 - Microsoft Lumia 950 Dual SIM
+- Nokia Lumia 1020 用于拍照
 
 好，以上是硬件部分，下面来说软件部分（仅无争议）
 
@@ -80,6 +87,14 @@ end of file
 没什么。
 
 MtF 请不要太强调自己的这个少数属性。
+
+{% folding 其实还是有的，但怕你们对号入座 %}
+
+- 把喜好全当身份认同了的，已经不是在说明自己喜欢什么的地步了
+
+- 见人就说 Please turn from Windows to Linux! 的
+  
+{% endfolding %}
 
 ## 过往经历造就的与众不同
 
