@@ -3,16 +3,16 @@ title: Windows RT 越狱社区和微软官方的"军备竞赛"
 categories: [纪实]
 author: bingtangxh
 date: 2025-05-02 12:32:00
-updated: 2025-05-03 19:28:00
+updated: 2025-07-09 08:45:00
 ---
 
 ## 桌面应用签名限制
 
 ### 限制描述
 
-也许是为了在 Windows RT 设备上强推商店生态，微软从 Windows RT Build 8186 前的某个系统（Build 8061 尚无此限制）开始，禁止了不是 Microsoft Corporation 签名的桌面应用运行。试图运行时会得到提示："Windows 无法验证此文件的数字签名。"
+也许是为了在 Windows RT 设备上强推商店生态，微软从 Windows RT Build 8186 前的某个系统（Build 8061 尚无此限制）开始，禁止了不是 Microsoft Corporation 签名的桌面应用运行。试图运行时会得到提示："Windows 无法验证此文件的数字签名。"，而如果签名已经签了，但是却不是 Microsoft Corporation 签名，或者桌面应用程序不是 ARM 架构的（绝大多数的桌面应用都是 x86/x64 架构的），那么显示的是"此应用无法在你的电脑上运行"。
 
-> 这和架构不同、没转译层是两码事。架构不同你看到的是"此应用无法在你的电脑上运行"。而至于为什么 ARM（不是 ARM64）架构的桌面应用少之又少？
+> 这和架构不同、没转译层是两码事。而至于为什么 ARM（不是 ARM64）架构的桌面应用少之又少？
 >
 > 1. Visual Studio 默认阻止你把桌面应用编译给 ARM 架构，会得到一句 `Compiling Desktop applications for the ARM platform is not supported`
 > 2. 用 Native C++ 编写的程序不好移植
@@ -58,7 +58,9 @@ updated: 2025-05-03 19:28:00
    然后，这个方法还是在 2015 年 8 月被更新堵住了，不过任何设备都可以清空 eMMC 的分区来撤销更新。
 
 3. **UMCI Audit Mode**  
-   这个只适用于关闭了安全启动（方法后面会说）的 Tegra 设备，不适用于 Qualcomm 设备或者没关安全启动的 Tegra 设备。其实就是改一个系统的注册表，那么系统就可以运行任何不管签没签的桌面应用程序。
+   这个只适用于关闭了安全启动（方法后面会说）的 Tegra 设备，不适用于 Qualcomm 设备或者没关安全启动的 Tegra 设备。
+   开启这个模式之后，就不需要开启测试模式了。
+   其实就是改一个系统的注册表，那么系统就可以运行任何不管签没签的桌面应用程序。
 
 4. **装 Windows 10 Version 1607 Build 15035**  
    这个不用多说了吧，装个系统的事。这个系统没有这个限制。不过 Surface 2 需要先关闭安全启动（方法后面会说）。
@@ -105,3 +107,28 @@ Windows RT 设备当然也不例外。而且更"油饼"的是，以 Surface RT �
   完事。详细步骤可以在 Surface RT 交流群或者 Open RT Discord 获得。
 
   装软件用的是 `add-appxpackage` 这个 PowerShell 指令，我们可以将这个指令弄进右键菜单和打开方式，并关联给 `.appx` 和 `.appxbundle` 这两个扩展名。
+
+## 传统桌面组件被砍
+
+### 限制描述
+
+   在 Windows RT 系列当中，一些桌面组件被移除。一些组件甚至早期版本还有，到了正式版就没有了，如`mshta`。
+   > 微软官方说法，Windows Media Player 不适用于 Windows RT 8.1。
+
+### 绕过的方法
+
+   根据圈内其他大佬的研究成果，我们可以从微软的服务器上“扒”下来 Repair Content，Repair Content 是系统的零散组件，理论上可以用来“搓”出来一个能启动的系统。
+   1. 我们先去[9826技术栖息地的灵感簿](http://9826hzg.ysepan.com)，翻到“其他零散资源（系统）→WindowsRT”，然后下载这里的`rt9600wmp.zip`。Repair Content 的版本应该是要和系统的版本完全对上的，目前只有 Windows RT 8.1 （内部版本 9600）可以用这里下载的文件。
+   2. 然后我们需要解压缩到一个 U 盘或者存储卡里，里面一共有三个文件夹，我们首先用到的就是里面的 rt9600wmp 文件夹。然后我们在 Windows RT 设备上要进入另外一个系统，可以是 WinRE 恢复环境。在那个系统里，我们用 dism /add-package 用法来添加功能，一共需要添加三个文件，但是压缩包里的文件不能缺，也就是指令有三行，但是文件还有一些别的，要放在一起。
+   三行指令分别是：
+   `dism /image:C: /add-package /PackagePath:microsoft-windows-mediaplayback-oc-package~31bf3856ad364e35~arm~~6.3.9600.16384.mum`
+   `dism /image:C: /add-package /PackagePath:microsoft-windows-mediaplayer-package~31bf3856ad364e35~arm~~6.3.9600.16384.mum`
+   `dism /image:C: /add-package /PackagePath:microsoft-windows-mediaplayer-package-ua~31bf3856ad364e35~arm~~6.3.9600.16384.mum`
+   （其中`/image:`和`/PackagePath`参数仅作示例，具体换成你实际的路径，你可以提前用`cd /d`指令来事先切换到 .mum 文件所在的文件夹）
+   3. 如果添加的时候发现添加失败，比如“找不到引用的汇编”，那么我们需要将 rt9600wmp_add 文件夹里的东西和 rt9600wmp 的合并，可以用指令直接复制：
+   `xcopy /e D:\rt9600wmp_add\* D:\rt9600wmp\`
+   （命令中 D:\ 作为示例，具体替换为你自己的路径）
+   然后还需要再敲一遍三条指令。
+   4. 最后，我们回到 Windows RT 8.1 系统当中，将“RT8.1 WMP组件进一步修复”的文件放进 C: 盘的对应文件夹当中。
+   5. 完事。
+   目前只有 Windows Media Player 值得修复且修复方式相对成熟，对于便笺（StickyNotes）的“补回”仍在研究当中，目前会导致“便笺只能创建，无法删除，别的调颜色之类的都干不了”。
