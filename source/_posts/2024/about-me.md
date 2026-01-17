@@ -86,13 +86,17 @@ end of file
 
 没什么。
 
-MtF 请不要太强调自己的这个少数属性。
+
 
 {% folding 其实还是有的，但怕你们对号入座 %}
 
 - 把喜好全当身份认同了的，已经不是在说明自己喜欢什么的地步了
 
 - 见人就说 Please turn from Windows to Linux! 的
+
+- 讽刺的是，这里的第一点说的就是我
+
+- [DELETED]
   
 {% endfolding %}
 
