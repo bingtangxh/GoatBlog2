@@ -12,7 +12,7 @@ updated: 2026-01-18 18:16:00
 ## 前置条件
 - 一个有 Azure 订阅的账号，上面要有 x64 架构的虚拟机，该虚拟机要有一块硬盘
 - （本文存在意义是让有 Azure 账号但是因为微软不让就不会用 Windows Server 2012 R2 系统的用户也能创建，没有 Azure 账号的话……恕我高冷范一点，看本文意义不大。）
-- 自己电脑上要有 VMware Workstation（下称“VMW”，不确定 Player 可不可以，建议 Pro）、Oracle Virtual Box 或者 Hyper-V 任意一个
+- 自己电脑上要有 VMware Workstation Pro、Oracle Virtual Box 或者 Hyper-V 任意一个
 
 {% folding 最好不要同时安装 VMW 和 Hyper-V %}
 因为安装了 Hyper-V 之后，VMW 就会为所有的虚拟机都启用“侧通道缓解”，
@@ -24,63 +24,57 @@ updated: 2026-01-18 18:16:00
 而是要禁用好几个虚拟机或者 Hyper-V 相关的服务，VMW 虚拟机的性能才能变回正常状态。
 {% endfolding %}
 
+{% folding VMware Workstation Player 也可以 %}
+但是因为 Player 在新建虚拟机的时候必须新建一个 vmdk 的虚拟硬盘，不能使用现有 vhd 虚拟硬盘，所以你只能先按照流程创建一个新建 vmdk 虚拟硬盘的虚拟机，创建好之后先不要开机，还要编辑虚拟机设置，将原来的硬盘删掉，再增加一个硬盘，选取那个 vhd 文件，这样让虚拟机用那个 vhd 文件，再开机。
+{% endfolding %}
+
 - Windows Server 2012 R2 x64 Standard 批量授权（VL）版本的系统镜像（可以在 [我告诉你](https://msdn.itellyou.cn)搜索下载，那些是 ed2k 网址，可以用[迅雷](https://www.xunlei.com)下载）
 - 64GB 以上的连续可用硬盘空间（需要存放 64GB 的 vhd 文件，具体取决于你服务器硬盘大小）
 - 持续可用的互联网连接
-- 下载 Dism++ （会敲命令的话也可以不用）
-- 下载 DiskGenius 或其他分区工具软件（会敲命令的话也可以不用，但是比较繁琐）
 
 ## 准备虚拟硬盘
 1. 打开 Windows 7 及以上版本的“磁盘管理”，点击菜单栏的“操作”→创建 VHD。
 2. 路径任意，但是虚拟硬盘格式一定要是 VHD，虚拟硬盘类型一定要是“固定大小”，虚拟硬盘大小取决于你 Azure 虚拟机的硬盘大小，最好完全一样。如果你是学生订阅的免费试用虚拟机，那一般是 64GB。新建硬盘需要 2 分钟左右。
-3. 等待完成之后，将硬盘初始化为 GPT 分区表。
-4. 接下来需要用到分区软件了，这里用 DiskGenius ，建议用最新版。先对那个虚拟硬盘“创建 ESP/MSR 分区”，创建一个 300MB 的 ESP 分区，再创建一个任意大小用来存放 Windows Server 系统的 NTFS 分区，可以是 16GB 或以上的任意大小，一般就是将硬盘空间用满。当然你还可以用 DiskGenius 的“快速分区”功能。其他分区软件则取决于具体使用方法。
-5. 分区完成后，DiskGenius 应该会自动给 NTFS 分区分配盘符，给 ESP 分区默认不会分配盘符。如果你待会用 Dism++ 释放镜像，那不用管，分区软件可以关掉了；如果你要手动敲指令，那 ESP 分区你也需要手动分配一个盘符，而且释放镜像添加引导之后最好再手动删除 ESP 分区的盘符。
-   
-{% folding （不推荐）（WIP）用自带的 diskpart 指令新建分区 %}
-
-（……WIP）相对较麻烦，不建议，除非你用的 IA64/ARM/ARM64 电脑，只能用 diskpart 指令，即使这样我也没写好，请谅解
-
-{% endfolding %}
-
-6. 用你自己喜欢或者能用的方法将 Windows Server 2012 R2 的 install.wim/esd 文件提取出来，可以是在 Windows 8 及以上双击挂载 ISO 或者用解压缩软件提取出来。
-7. 用 Dism++ 将 wim/esd 文件释放到虚拟硬盘里，注意选择好 wim/esd 文件后、开始释放之前，切记选择 Windows 版本为 Windows Server 2012 R2 STANDARD 桌面体验（DESKTOP EXPERIENCE），切勿选择 DATACENTER 或者没有“桌面体验”的版本，并且一定要勾选“添加引导”。
-
-{% folding 用命令行释放系统 %}
-
-上一个步骤也可以用 dism 和 BCDBOOT 指令。
-
-打开一个管理员身份的命令提示符，先输入：
-`dism /get-imageinfo /imagefile:F:\sources\install.wim`
-（F: 是我这里 ISO 镜像挂载出来的盘符，具体是你自己的路径）
-
-看一下这个镜像里有哪些系统版本。那么第 2 个是咱们需要的版本，接下来释放镜像
-`dism /apply-image /imagefile:F:\sources\install.wim /index:2 /applydir:E:\`
-（E: 是虚拟硬盘里用来放系统的 NTFS 分区的盘符，具体是你自己的盘符）
-
-释放过程所需时间不同情况差得远，我这里只用了 6 分钟。接下来输入
-`bcdboot E:\Windows /s G: /f UEFI`
-（G: 是虚拟硬盘里我手动给 ESP 分区分配的盘符，具体是你自己的盘符。这一步完成后最好再在分区软件里删掉 ESP 分区的盘符）
-
-完成。
-
-{% endfolding %}
-   
-3. 等待几分钟（可能更慢）进行释放。
-4. （注意）完成之后，再打开磁盘管理，将虚拟硬盘“分离”。
+3. 等待完成之后，将硬盘初始化为 GPT 分区表。然后一定要将虚拟硬盘“分离”。
    
 ## 准备你自己电脑上的虚拟机
-这个具体的虚拟机软件步骤不太一样，总之就是新建一个虚拟机，硬盘用你刚才弄好的 vhd 文件，开机。
-开机之后，先简单完成 OOBE 设置步骤，等到进桌面之后，只有一件事，打开命令提示符，运行下面这个指令：
-`C:\Windows\system32\sysprep\sysprep.exe /generalize /shutdown`
+这里是用 VMware Workstation Pro 16.0 举例。
+这个具体的虚拟机软件步骤不太一样，总之就是新建一个虚拟机，硬盘用你刚才弄好的 vhd 文件，光盘就选 Windows Server 2012 R2 的 ISO 镜像文件。
+如果是 VMware Workstation Pro，那就在创建虚拟机时一定要选择“自定义（高级）”，这样才能用你自己的 vhd 文件作为虚拟硬盘，不用现场新建 vmdk 虚拟硬盘。如果是 Player 请参照上文折叠的内容。
+按照常见的虚拟机 Windows 安装步骤安装 Windows 或者设置 VMware 的简易安装配置即可。务必记得“要安装的 Windows”版本一定要选择“Standard 桌面体验”，尤其是有些时候你的操作向导步骤里“选择 Windows”版本只是一个下拉菜单，不显眼，就容易忘掉这一步，安装好了才发现不对劲。一般不需要输入产品密钥。但是设置的管理员密码要记住，因为待会还需要输入一次。
+如下图，可以在创建虚拟机向导中使用“简易安装”，就是下图这一步要注意选取正确的 Windows 版本。
+![](Screenshot_2026-01-19_214726.png)
+下图这里就一定要选择“使用现有虚拟磁盘”，如果是 Player 就参照上面折叠内容说的。
+![](Screenshot_2026-01-19_214940.png)
+这里注意，浏览虚拟硬盘文件的时候，因为右下角“文件类型”默认只有 vmdk 这一个扩展名，所以你得手动改成“所有文件”。
+![](Screenshot_2026-01-19_215007.png)
+同样的， VMW 会询问要不要升级虚拟硬盘格式，咱们这里当然不升级，要不然就不是 vhd 格式了。
+![](Screenshot_2026-01-19_215015.png)
+（以上是 VMware Workstation 的设置步骤，其他虚拟机软件应该需要手动进行安装。此处恕不加详述，就是一般的 Windows 安装步骤。当然要记住你设置的密码，虽然最终就用不到了，但是你至少还需要用到一次）
+然后在这里，用虚拟机软件给的方式向虚拟机发送按键 Ctrl+Alt+Delete ，可不要按你实际电脑的 Ctrl+Alt+Delete 啊，
+![](Windows_Server_2012_R2-2026-01-19-21-55-12.png)
+等到进桌面之后，只有一件事，打开命令提示符，运行下面这个指令：
+`C:\Windows\system32\sysprep\sysprep.exe /oobe /generalize /shutdown`
 然后你的这个系统会进行“通用化”操作，然后关机。
+![](Windows_Server_2012_R2-2026-01-19-21-58-40)
+注意这个步骤完成之后，系统会不加额外提示直接进入关机流程，所以你这期间虽然可以干别的操作，但是会被这个 sysprep 直接打断。
 
 ## 在 Azure 租户里新建存储账户和 Blob
-（WIP……）
+在[Azure主页](https://portal.azure.com)点击“创建资源”，然后选择“存储账户”→“创建”。
+![](Screenshot_2026-01-19_074956.png)
+下面这里允不允许公用网络访问，我也不确定，就允许吧，难不成一个破 vhd 文件会有什么风险？（哎，话不敢说太满，但是总觉得这里如果禁止了会不会导致额外的麻烦或者错误）
+![](Screenshot_2026-01-19_075520.png)
+下图就是存储账户已经创建好了。
+![](Screenshot_2026-01-19_075950.png)
+创建大致步骤任意，创建完成后，在左侧点击“数据存储”→“容器”→“添加容器”。
+![](Screenshot_2026-01-19_080124.png)
+
 
 ## 将 vhd 文件上传上去
 （WIP……）
 大概就是可以 Web 端直接上传（稳定性不好且无法断点续传，可能浏览器报错内存不足），或者给 Blob 新建一个能进行写入操作的 token ，再下载一个 Azure 还是什么的的[本地管理客户端](https://aka.ms/portalfx/downloadstorageexplorer)，用 token 连接上，再用这个客户端上传上去。
+下图是那个下载“本地管理客户端”的地方。在首页点击“Download”，然后就来到了这里，咱们当然下载 Windows x64 了。
+![](Screenshot_2026-01-19_080918.png)
 
 ## 用这个 vhd 文件新建一个“映像”
 （WIP……）
