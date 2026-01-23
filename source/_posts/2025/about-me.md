@@ -62,16 +62,15 @@ end of file
 ## 我在用什么
 
 - Dell Inspiron 15 5501
+- 一个台式机，配有 12490F 处理器和 GTX1060 5G 显卡还有 5 块硬盘和一个（迫真）软阵列
   - Windows 11
   - Manjaro
-- 影驰 GTX 1060 5G
-- Surface Pro 3 128GB
-  - Windows 8.1
 - Mi Silent Mouse
 - Acer OKR213
-- Samsung Galaxy A54 5G
+- Samsung Galaxy A54 5G （主力安卓机）
 - Microsoft Lumia 950 Dual SIM
-- Nokia Lumia 1020 用于拍照
+- Nokia Lumia 1020 （用于拍照）
+- Zune（不用想肯定是初代）
 
 好，以上是硬件部分，下面来说软件部分（仅无争议）
 
@@ -86,17 +85,16 @@ end of file
 
 没什么。
 
-
+- [DELETED]
 
 {% folding 其实还是有的，但怕你们对号入座 %}
 
-- 把喜好全当身份认同了的，已经不是在说明自己喜欢什么的地步了
-
+- 把��当身��了的，已经不是在说明自己��么的地步了
 - 见人就说 Please turn from Windows to Linux! 的
-
 - 讽刺的是，这里的第一点说的就是我
-
-- [DELETED]
+- 怎么上面有一个 [DELETED]？呵呵呵，因为不能�����，尤其是�。猜猜什么��可以被��呢，一定不是��吧
+- 顺便嘟一嘴，这里的'�'并不是加载问题，是一开始就这么打的
+- 果然整篇文章还是这部分最容易触发“被截图发回来并且对方一言不发”流程
   
 {% endfolding %}
 
