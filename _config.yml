@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: '冰糖xh的草滩'
-subtitle: '谈论技术的同时不缺风趣与地气'
-description: '这里是冰糖xh的技术类Blog，请多多指教'
+title: 冰糖xh的草滩
+subtitle: 谈论技术的同时不缺风趣与地气
+description: 这里是冰糖xh的技术类Blog，请多多指教
 keywords:
 author: 冰糖xh
 avatar: https://wsrv.nl/?url=github.com/bingtangxh.png
@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://haruka.bingtangxh.moe
-permalink: :year/:month/:day/:title/
+permalink: :title/
 permalink_defaults:
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -42,6 +42,9 @@ external_link:
 filename_case: 0
 render_drafts: false
 post_asset_folder: true
+marked:
+  prependRoot: true
+  postAsset: true
 relative_link: false
 future: true
 syntax_highlighter: highlight.js

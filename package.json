@@ -5,8 +5,9 @@
   "scripts": {
     "build": "hexo generate",
     "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "dev": "hexo clean && hexo server",
+    "preview": "npx serve ./public"
   },
   "hexo": {
     "version": "7.3.0"
