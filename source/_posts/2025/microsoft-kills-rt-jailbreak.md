@@ -16,7 +16,7 @@ updated: 2025-07-09 08:45:00
 >
 > 1. Windows SDK 默认阻止你把桌面应用编译给 ARM 架构，会得到一句 `Compiling Desktop applications for the ARM platform is not supported`
 > 2. GNU 的应用程序也"不好搞"（这个是听说的）
-> 3. 我也不知道为什么，单纯因为没人用？
+> 3. 我也不知道为什么，单纯因为没人用，所以开发者懒得适配测试，反正也没必要花钱买没用的测试机？
 >
 > 似乎就只有 Qt 或者 .NET Framework 4.x 写的东西好移植。最后，外界普遍得出了"Windows RT 只能运行商店应用"的结论。
 
@@ -30,12 +30,29 @@ updated: 2025-07-09 08:45:00
 注意，如果你用的是 Surface 或者联想的 RT 平板，那么可以不看测试模式，直接想办法关闭安全启动。
 下面四个越狱方式的前两种，即使越狱了，你的 exe 文件还是要签一下名才能运行。
 注意，是“信任任何签名”，也就是随便一个签名就可以，而完全没有签名还是不行。
-而咱们一般下载的 exe 都是没有签名的，即使有个 XDA 大佬写了个 `SignTool` 用来简单快速地签名（不是 Windows SDK 里面的 Sign Tool），那不还是多了一个步骤吗？
+
+而咱们一般下载的 exe 都是没有签名的，即使有个 XDA 大佬写了个 `SignTool` 用来简单快速地签名（不是 Windows SDK 里面的 SignTool），那不还是多了一个步骤吗？
+
+{% folding 关于那个 SignTool %}
+
+原发布贴在这里[Windows RT 8.1 - Jailbreak Sign Tool](https://xdaforums.com/t/windows-rt-8-1-jailbreak-sign-tool.3228929/)
+
+注意这个 SignTool 是用 .NET Framework 4.x C# 语言写的，所以同一个文件在 x86/ARM32 上都能运行。
+你可以将这个工具下载下来，复制一份，用复制出来的去“签一下”原来的那个“它自己”，
+然后这个签过了的 SignTool 就在 RT 上也能运行了，你下载了什么东西，用 RT 平板自己运行 SignTool 直接签，签了直接运行，
+不需要另找 x86/x64/ARM64 电脑签了名然后再用 U 盘或者 SMB 共享过去，真繁琐。
+
+{% endfolding %}
+
 所以 Surface 或者联想的可以直接看下面的第 3~4 点，用那两个方式之后，ARM32 架构适配的 exe 文件就可以随便运行，不需要事先签名了。
+
+但是 Qualcomm 设备（如 Lumia 2520）还是只能用开启测试模式的方法，所有 exe 文件得先签名才能运行，关不掉安全启动。
 
 > 启动测试模式，只是只要有随便一个签名的应用可以运行了。如果完全没有签名，那还是无法运行，报错同上。我们要运行一个完全没有签名的应用程序，那就用 AnyCPU 架构并且微软签过了的 SignTool 给我们要运行的程序签一下就行了。
 
-然而，~~你能想到微软怎么可能想不到，~~微软在 Windows RT 8.1 中（8.0 无此措施）拉黑了用于启用测试模式的启动管理器参数——`testsigning`。首先如果你在系统里试图将 `testsigning` 设置为 Yes，会得到一句 “该值受安全引导策略保护”。而如果你用其他方法，让 `testsigning` 最终还是变成了 Yes，那么系统就无法启动。
+然而，~~你能想到微软怎么可能想不到，~~微软在 Windows RT 8.1 中（8.0 无此措施）拉黑了用于启用测试模式的启动管理器参数——`testsigning`。
+首先如果你在系统里试图将 `testsigning` 设置为 Yes，会得到一句 “该值受安全引导策略保护”。
+而如果你用其他方法，让 `testsigning` 最终还是变成了 Yes，那么系统就无法启动。
 
 1. **Myriachan**  
    Windows 启动管理器的检测机制负责检测有没有拉黑的参数，而实际执行时是负责实际启动的部分，或者 Windows 的内核。  
@@ -124,8 +141,8 @@ Windows RT 设备当然也不例外。而且更"油饼"的是，以 Surface RT �
 以下是可能的方法：
 
 - ~~侧载密钥（卖 3000 美元，而且微软还不卖了）~~
-- **启用 LOB 侧载（需要先开启测试模式）**  
-  用一个 AnyCPU 的 ProductPolicyEditor 在 Setup 模式下，关闭 sppsvc 服务，再将两个注册表值（直接注册表或者指令改不好改）由 0 改成 1 就行了。详见[在2024年为Windows8.x系列成功侧载第三方metro应用 复活你的Surface RT!](https://www.bilibili.com/video/BV1XS421w7uX/)  
+- **启用 LOB 侧载（需要先开启测试模式，已过时不推荐）**  
+  用一个 AnyCPU 的 ProductPolicyEditor （也是 C# 写的）在 Setup 模式下，关闭 sppsvc 服务，再将两个注册表值（直接注册表或者指令改不好改）由 0 改成 1 就行了。详见[在2024年为Windows8.x系列成功侧载第三方metro应用 复活你的Surface RT!](https://www.bilibili.com/video/BV1XS421w7uX/)  
   可是，后果是什么呢？  
   你不关闭 sppsvc，那么 sppsvc 会贴心地将这两个数值又给改回去。而关闭 sppsvc 会使激活失效，而且 Office RT 也就无法打开了。  
   那如果先关闭 sppsvc，然后装上要装的软件，最后再打开 sppsvc 呢？也不行。你装的软件会变成"无法打开这个应用"。
@@ -136,9 +153,28 @@ Windows RT 设备当然也不例外。而且更"油饼"的是，以 Surface RT �
   2. 指定 KMS 服务器和产品密钥，激活系统
   3. 把 Office 的相关文件也换成 Pro Plus VL 的，用 KMS 激活。
   
-  完事。详细步骤可以在 Surface RT 交流群或者 Open RT Discord 获得。
+  完事。详细步骤可以在 [Surface RT 交流群](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Ce1yu4QLXrUIFKjBznFHUly0WIMGQsyd&authKey=d9lUQrNVGTNKd2%2Bku1mIWhXFnmNUS%2Babm4vb3PzRMVzOw5Obg8Sqem0idUYxyUMe&noverify=0&group_code=725688821)或者 [Open RT Discord](https://discord.gg/VW75GmWa95) 获得。
 
   装软件用的是 `add-appxpackage` 这个 PowerShell 指令，我们可以将这个指令弄进右键菜单和打开方式，并关联给 `.appx` 和 `.appxbundle` 这两个扩展名。
+
+{% folding 其实还有 Windows 8 Appx 应用的一系列限制 %}
+
+- Appx 应用首先要有签名，以防损坏或篡改
+- 签名还要是受信任的，才能安装（WP8.1 是特例无此限制，但是其他限制一个不落）
+- 上传到微软商店的软件包会被微软签名。微软签名肯定是受信任的
+- 你自己签的名肯定默认是不信任的，要添加信任
+- 但是！微软签名的软件包，必须是从商店安装的，才能打开运行，如果微软签名的包是侧载安装上去的，那虽然能安装，但是打不开，报错“无法打开这个应用”。
+- 所以，你想要安装一个 Appx 包，首先需要“重新打包签名”（可以用以前的 WSAppBak 或者后来的 Resign Tool），让它变成一个“其他签名”
+- 然后再将这个签名导入信任
+- （WP8.1 不需要上一步，电脑的 Win8/Win8.1/Win10/Win11 或者手机的 Win10Mobile 则都需要，具体的有点没法长话短说，就是将 cer 或 pfx 文件，或者就是 Appx 文件的数字签名，导入到本地计算机的“受信任的根证书颁发机构”里面去。如果不添加信任，安装的时候就会报错“已处理证书链，但在不受信任的根证书中终止”）
+- 才能安装这个软件包并安装使用
+- 没错，就是这么繁琐！要不然你就买下微软解决一切！
+- 所以，如果是微软签名的包，看似不用导入证书（添加信任）就可以安装，但是安装后却无法打开，报错“无法打开这个应用”。这时就必须先卸载那个打不开的软件包，再重新打包签名，重试安装。要不然，你重新打包签名好了，还是装不上，因为已经“装过了”。
+- 此外，因为没有 ARM32 的 makecert.exe （倒是有 Windows SDK 里面给 ARM32 带的 SignTool，也有泄露的 makeappx 和 makepri），所以重新签名打包的这个过程还不能在 RT 平板自身上完成，只能另找 x86/x64/ARM64 电脑，重新签名完了之后再在 RT 平板上安装。
+- 如果你下载的软件包 Appx 附带了 pfx 或 cer 文件，那就说明它已经重新打包签名过了，可以直接添加信任并安装。
+- 如果是依赖包（VCLib，WinJS，UI.Xaml）这种的，那么一般不需要重新打包签名，是微软签名，能直接安装就直接安装没事；如果不信任就添加信任再安装。
+
+{% endfolding %}
 
 ## 传统桌面组件被砍
 
