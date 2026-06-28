@@ -63,16 +63,16 @@ end of file
 
 ## 我在用什么
 
-- Dell Inspiron 15 5501
 - 一个台式机，配有 12490F 处理器和 GTX1060 5G 显卡还有 5 块硬盘和一个（迫真）软阵列
   - Windows 11
   - Manjaro
-- Mi Silent Mouse
+- Dell Inspiron 15 5501
+- Surface Pro 3
+- Nokia Lumia 2520
 - Acer OKR213
+- Acer OMW120
 - Samsung Galaxy A54 5G （主力安卓机）
-- Microsoft Lumia 950 Dual SIM
 - Nokia Lumia 1020 （用于拍照）
-- Nokia Lumia 1520 （纯属看样）
 - Zune（不用想肯定是初代）
 
 好，以上是硬件部分，下面来说软件部分（仅无争议）
