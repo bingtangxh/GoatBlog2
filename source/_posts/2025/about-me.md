@@ -68,7 +68,7 @@ end of file
   - Manjaro
 - Dell Inspiron 15 5501
 - Surface Pro 3
-- Nokia Lumia 2520
+- Nokia Lumia 2520 （多台成色差的拼好机）
 - Acer OKR213
 - Acer OMW120
 - Samsung Galaxy A54 5G （主力安卓机）
@@ -133,9 +133,9 @@ end of file
 
 1. 做了几个面向 Windows 的小工具，有的是 C 语言 Win32，有的是 WinJS
 2. 即便如此，我前端 HTML 和 JavaScript 完全就是半吊子，在 WinRT 开发选择了 WinJS 纯粹是因为 C++/C# +.NET 和 XAML 更不会
-3. 虽然用着 Surface ，但是一台是 Surface 2，一台是 Surface Pro 3；并不喜欢很多人都觉得更应该选择的 Pro 8~9，因为我不喜欢它们没有 USB-A 和 MicroSD 卡槽。
+3. 虽然用着 Surface ，但是一台是 Surface 2（将会卖出，目前生态位由难得成色好其实是拼好机的 Lumia 2520 取代），一台是 Surface Pro 3；并不喜欢很多人都觉得更应该选择的 Pro 8~9，因为我不喜欢它们没有 USB-A 和 MicroSD 卡槽。
 4. 有一台 Azure B2ats_v2 服务器运行 IIS 和 qBitTorrent 等服务，使用了 Windows Server 2012 R2 操作系统带桌面体验，而不是更多人认为你更应该选择的 Linux （Ubuntu、Alpine 等发行版甚至 FreeBSD）
-5. 喜欢 Windows Phone，手持 1020、1520、950，但没有 950XL。
+5. 喜欢 Windows Phone，手持 1020，但没有 950XL。
 6. 日用的电脑确实装有 Arch Linux 系统，且不是虚拟机。但是那是 Manjaro，这个发行版不被很多婆罗门承认。并且 Manjaro 不用于日用，被一些人说是因为没有用心去找替代品。
 7. 在占用磁盘空间和现实时间精力较大的游戏当中，喜欢且只喜欢玩原神。
 8. 基于上一点，有人认为我属于那种看热门番剧的泛二次元？但是实际上番剧我几乎只看里番（有人要被震惊了），而且里番里看的也是几乎没人看的发糖的，而不是“实用”的。延伸到 GAL 游戏也是，玩的都是被说是这辈子有了的抜ゲ，几乎没有被对应的粉丝群体大副推荐的剧情向神作。
