@@ -63,17 +63,18 @@ end of file
 
 ## 我在用什么
 
-- 一个台式机，配有 12490F 处理器和 GTX1060 5G 显卡还有 5 块硬盘和一个（迫真）软阵列
-  - Windows 11
-  - Manjaro
-- Dell Inspiron 15 5501
-- Surface Pro 3
-- Nokia Lumia 2520 （多台成色差的拼好机）
+- 一个台式机，配有 12490F 处理器和 GTX1060 5G 显卡好几块硬盘（Windows-latest）
+- Dell Inspiron 15 5501（Manjaro）
+- Surface Pro 3（Windows 8.1）
+- Nokia Lumia 2520 （仅电路板）
 - Acer OKR213
 - Acer OMW120
 - Samsung Galaxy A54 5G （主力安卓机）
 - Nokia Lumia 1020 （用于拍照）
 - Zune（不用想肯定是初代）
+- LG V40 ThinQ （LineageOS）
+- Samsung SGH-D728
+- Nokia 5130 XpressMusic
 
 好，以上是硬件部分，下面来说软件部分（仅无争议）
 
@@ -105,7 +106,7 @@ end of file
 
 ~~众所鳩知，~~我由于种种客观原因，在初中和高中选择了使用功能丰富的功能手机。
 据我所知做出该选择的同学极少。大多数选择使用纯播放器、残废手机或偷偷使用智能手机。
-下方列出了我用过的所有手机，一些已经被销毁或被盗窃：
+下方列出了我在拥有 Galaxy A54 之前使用过的所有手机，一些已经被销毁或被盗窃：
 
 - Nokia 5130 XpressMusic
 - Nokia 216
