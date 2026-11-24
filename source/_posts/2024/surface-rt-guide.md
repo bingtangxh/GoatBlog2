@@ -1,15 +1,19 @@
 ---
-title: Surface RT 保姆级新手上路（看这个没啥用）
+title: Surface RT 安装 Linux 系统
 categories: [教程]
 author: bingtangxh
 date: 2024-05-28 17:52:26
-updated: 2025-05-02 13:39:00
+updated: 2026-11-24 17:32:00
 ---
 
-## 此教程目前仍不完善
+## 此教程仅用于安装 Linux 和 Windows 双启动
 请根据您的折腾路线（安装侧载应用、刷Windows 10 Build 15035还是运行Linux系统）查找对应的教程。
+如我整理的[Windows RT 资源汇总](https://www.bingtangxh.moe/woa32)。
+
 目前本文章仅能介绍如何让你的Surface RT能在开机时出现一个菜单，让你选择启动内置存储（eMMC）的Windows RT 8.1还是MicroSD里的树莓派Linux系统。
-此教程理论上也适用于 Surface 2，不过 grub.cfg 中的 gfxmode 需要是 `1920x1080`，同时开机会卡 7 分钟 21 秒左右。（并没有说错）可以使用 Open RT Discord 提供的其他基于 Windows 启动管理器的程序来解决 7 分钟延迟问题。
+此教程理论上也适用于 Surface 2，不过 grub.cfg 中的 gfxmode 需要是 `1920x1080`，同时开机会卡 7 分钟 21 秒左右。（并没有说错）。
+
+可以使用 Open RT Discord 提供的其他基于 Windows 启动管理器的程序来解决 7 分钟延迟问题。
 
 ## 一、准备工作和下载，下述没特殊标明的就是一个都不能少
 
@@ -103,7 +107,7 @@ updated: 2025-05-02 13:39:00
 
 ## 二、开始突破
 
-1.	在正常电脑上操作：将 Jail Break 文件夹的所有文件都放到U盘里，让 `Jailbreak_USB_Menu.cmd` 这个文件在 U 盘的根目录。
+1.	在正常电脑上操作：将 Jail Break 文件夹的所有文件都放到U盘里，让 `Jailbreak_USB_Menu.cmd` 这个文件在 U 盘的根目录。（注意：这一段已有[视频教程](https://www.bilibili.com/video/BV1M1Yc6TELR/)）
 2.	你可以这个时候把下载好的树莓派镜像写入到 microSD 卡里，在此期间继续以下步骤，统筹安排节省时间。
 先将下载的 xz 文件解压，得到 img 文件。然后打开安装好的树莓派镜像烧录器 Raspberry Pi Imager，左边 Device 选 NO FILTERING，中间“系统”选择菜单最下面的 Use Custom，然后选择 img 镜像文件，右边“储存卡”选择你要存放树莓派系统的 microSD 卡。开始写入。
 写入完毕后还会自动进行校验。当整篇文章完成后，你可以删除 bootfs 分区，用其他分区软件（例如 DiskGenius 或 KDE 分区管理器）在未划给 rootfs 分区（ext4 文件系统）的空间上新建一个 FAT32 分区，用来存放你个人的媒体和文档。
