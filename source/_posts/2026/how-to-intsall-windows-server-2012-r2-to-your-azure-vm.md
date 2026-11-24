@@ -71,8 +71,7 @@ updated: 2026-01-18 18:16:00
 
 
 ## 将 vhd 文件上传上去
-（WIP……）
-大概就是可以 Web 端直接上传（稳定性不好且无法断点续传，可能浏览器报错内存不足），或者给 Blob 新建一个能进行写入操作的 token ，再下载一个 Azure 还是什么的[资源管理器](https://aka.ms/portalfx/downloadstorageexplorer)，用 token 连接上，再用这个客户端上传上去。
+可以在 Web 端直接上传（稳定性不好且无法断点续传，可能浏览器报错内存不足），或者给 Blob 新建一个能进行写入操作的 token ，再下载一个 Azure 还是什么的[资源管理器](https://aka.ms/portalfx/downloadstorageexplorer)，用 token 连接上，再用这个客户端上传上去。
 下图是那个下载“资源管理器”的地方。在首页单击“Download”，然后就来到了这里，咱们当然下载 Windows x64 了。
 ![](./Screenshot_2026-01-19_080918.png)
 然后安装这个资源管理器。可以是为本机所有用户安装，也可以只为当前用户安装。
