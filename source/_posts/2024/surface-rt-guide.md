@@ -4,6 +4,7 @@ categories: [教程]
 author: bingtangxh
 date: 2024-05-28 17:52:26
 updated: 2026-11-24 17:32:00
+description: 按照本文，你可以学会给你的 Surface RT 平板安装 Linux 系统，并与内置存储的 Windows 系统实现 GRUB 双重启动切换。
 ---
 
 ## 此教程仅用于安装 Linux 和 Windows 双启动

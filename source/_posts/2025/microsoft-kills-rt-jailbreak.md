@@ -4,6 +4,7 @@ categories: [纪实]
 author: bingtangxh
 date: 2025-05-02 12:32:00
 updated: 2025-07-09 08:45:00
+description: 本文把微软对于 Windows RT 系统的功能删减与限制、社区发展出来的越狱手段、还有微软是如何进行限制封堵的做一时间线记录。
 ---
 
 ## 桌面应用签名限制

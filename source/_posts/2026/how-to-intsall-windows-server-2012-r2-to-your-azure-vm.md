@@ -4,6 +4,7 @@ categories: [教程]
 author: bingtangxh
 date: 2026-01-18 18:16:00
 updated: 2026-01-18 18:16:00
+description: 本文教你在微软官方下架了 Windows Server 2012 R2 系统的 Azure 镜像之后，你还能怎么样给你的 Azure 服务器装上 Windows Server 2012 R2 系统。毕竟这个版本是学生免费试用规格的虚拟机能带动的最后一个版本。
 ---
 
 ## 此文章应该是写完了

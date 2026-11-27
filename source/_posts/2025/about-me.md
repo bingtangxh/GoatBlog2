@@ -4,6 +4,7 @@ categories: [日常]
 author: bingtangxh
 date: 2025-01-13 20:25:00
 updated: 2026-03-06 10:23:00
+description: 这篇文章是我自己的自我介绍，一些地方可能已经过时，但还是欢迎通过这篇文章了解我。
 ---
 
 ## 关于我这个人
